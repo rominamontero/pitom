@@ -14,6 +14,8 @@
 # 3.- contar vehiculos'''
 
 # usa lista o diccionario segun le acomode mas
+#estacionamiento
+
 import time
 
 tipo=""
