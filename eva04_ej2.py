@@ -32,7 +32,8 @@ GESTOR DE PACEINTES
 2.- Mostrar pacinetes
 3.- Contar pacientes graves
 4.- Contar ganancias
-5.- Salir
+5.- Quitar paciente
+6.- Salir
           """)
 def validar_grave(temperatura):
     if temperatura > 39:
@@ -51,7 +52,7 @@ def ingresar_paciente(pacientes):
         elif len(nombre)<=8:
             print("Error. El nombre debe tener mas de 8 caracteres")
         elif any(caracter.isdigit()for caracter in nombre):
-            print("El nombre no puede contener")
+            print("El nombre no puede contener numeros")
         else:
             break
     while True:
@@ -102,7 +103,8 @@ def mostrar_pacientes(pacientes):
         print("No hay pacientes ingresados")
     else:
         for paciente in pacientes:
-            print(f"""Nombre: {paciente["nombre"]}
+            print(f"""
+    Nombre: {paciente["nombre"]}
     Prevision: {paciente["prevision"]}
     Temperatura: {paciente["temperatura"]}
     Grave: {paciente["grave"]}
@@ -122,6 +124,24 @@ def contar_ganancias(pacientes):
     for paciente in pacientes:
         ganancias+=paciente["pago"]
     print(f"Ganancias: ${ganancias}")
+def quitar_paciente(pacientes):
+    if len(pacientes)==0:
+        print("No hay pacinetes registrados para eliminar")
+        return
+    for i in range(len(pacientes)):
+        print(f"{i+1}.- {pacientes[i]["nombre"]} - {pacientes[i]["prevision"]}")
+    try:
+        op=int(input("Selecione el numero del paciente que desea eliminar: "))
+        if op <1 or op >len(pacientes):
+            print("Numero de paciente no valido")
+        else:
+            paciente_eliminado=pacientes.pop(op-1)
+            print("Paciente eliminado correctamente")
+            print(f"Nombre: {paciente_eliminado["nombre"]}")
+    except ValueError:
+        print("Debe ingresar un valor numerico")
+
+
 
 while True:
     mostrar_menu()
@@ -137,6 +157,8 @@ while True:
             case 4:
                 contar_ganancias(pacientes)
             case 5:
+                quitar_paciente(pacientes)
+            case 6:
                 print("Saliendo...")
                 time.sleep(1)
                 break
